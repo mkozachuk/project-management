@@ -1,6 +1,7 @@
 package com.mkozachuk.projectmanagement.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -71,13 +72,12 @@ public class Project implements Serializable {
                 Objects.equals(projectName, project.projectName) &&
                 Objects.equals(startDate, project.startDate) &&
                 Objects.equals(finishDate, project.finishDate) &&
-                Objects.equals(client, project.client) &&
                 Objects.equals(employees, project.employees);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(projectId, projectName, startDate, finishDate, client, employees);
+        return Objects.hash(projectId, projectName, startDate, finishDate, employees);
     }
 
     @Override
@@ -133,6 +133,7 @@ public class Project implements Serializable {
         this.client = client;
     }
 
+    @JsonManagedReference
     public Set<Employee> getEmployees() {
         return employees;
     }

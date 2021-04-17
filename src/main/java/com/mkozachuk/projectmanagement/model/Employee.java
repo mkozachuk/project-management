@@ -1,6 +1,11 @@
 package com.mkozachuk.projectmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -15,9 +20,14 @@ public class Employee implements Serializable {
     @Column(name = "employee_id")
     private Long employeeId;
 
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
+    @NotBlank
+    @Email
     private String email;
+    @NotBlank
     private String pesel;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -118,6 +128,7 @@ public class Employee implements Serializable {
         this.pesel = pesel;
     }
 
+    @JsonBackReference
     public Set<Project> getProjects() {
         return projects;
     }
