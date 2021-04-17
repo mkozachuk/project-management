@@ -1,5 +1,7 @@
 package com.mkozachuk.projectmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -73,6 +75,7 @@ public class Client implements Serializable {
         this.companyName = companyName;
     }
 
+    @JsonManagedReference
     public Set<Project> getProjects() {
         return projects;
     }

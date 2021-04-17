@@ -1,5 +1,7 @@
 package com.mkozachuk.projectmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -26,7 +28,7 @@ public class Project implements Serializable {
     private Date finishDate;
 
     @ManyToOne
-    @JoinColumn(name="client_id", nullable=false)
+    @JoinColumn(name = "client_id")
     private Client client;
 
     @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
@@ -122,6 +124,7 @@ public class Project implements Serializable {
         this.finishDate = finishDate;
     }
 
+    @JsonBackReference
     public Client getClient() {
         return client;
     }
