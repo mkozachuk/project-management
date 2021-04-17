@@ -10,12 +10,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -25,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:test.properties")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class EmployeeControllerIntegrationTest {
 
     @Autowired
@@ -51,14 +54,17 @@ class EmployeeControllerIntegrationTest {
         Long employeeId = 1L;
         Long projectId = 1L;
 
-        Employee employee = new Employee("John", "Doe","jonh.doe@company.com","12345678901");
+        Set<Project> projects = new HashSet<>();
+
+        Employee employee = new Employee("John", "Doe", "jonh.doe@company.com", "12345678901");
         employeeService.save(employee);
-        Project project = new Project("CoolProject", new Date(), new Date());
+        Project project = new Project("CoolProject", new Date(), new Date(), null, new HashSet<>());
         projectService.save(project);
         String url = baseUrl + "/" + employeeId + "/assign/" + projectId;
 
         Employee employeeWithSignedProject = employee;
-        employeeWithSignedProject.getProjects().add(project);
+        projects.add(project);
+        employeeWithSignedProject.setProjects(projects);
 
         MvcResult result = mockMvc.perform(get(url)
                 .contentType("application/json"))

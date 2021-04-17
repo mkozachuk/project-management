@@ -19,7 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -48,7 +47,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void testCreateNewEmployee() throws Exception {
-        Employee employee = new Employee("John", "Doe","jonh.doe@company.com","12345678901");
+        Employee employee = new Employee("John", "Doe", "jonh.doe@company.com", "12345678901");
 
         Mockito.when(employeeService.save(employee)).thenReturn(employee);
 
@@ -67,7 +66,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void testFirstNameMustBeNotBlank() throws Exception {
-        Employee employee = new Employee("", "Doe","jonh.doe@company.com","12345678901");
+        Employee employee = new Employee("", "Doe", "jonh.doe@company.com", "12345678901");
 
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")
@@ -80,7 +79,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void testLastNameMustBeNotBlank() throws Exception {
-        Employee employee = new Employee("John", "","jonh.doe@company.com","12345678901");
+        Employee employee = new Employee("John", "", "jonh.doe@company.com", "12345678901");
 
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")
@@ -93,7 +92,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void testPeselMustBeNotBlank() throws Exception {
-        Employee employee = new Employee("John", "Doe","jonh.doe@company.com","");
+        Employee employee = new Employee("John", "Doe", "jonh.doe@company.com", "");
 
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")
@@ -106,7 +105,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void testEmailMustBeNotBlank() throws Exception {
-        Employee employee = new Employee("John", "Doe","","12345678901");
+        Employee employee = new Employee("John", "Doe", "", "12345678901");
 
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")
@@ -119,7 +118,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void testEmailMustBeEmailStyle() throws Exception {
-        Employee employee = new Employee("John", "Doe","fakeEmail","12345678901");
+        Employee employee = new Employee("John", "Doe", "fakeEmail", "12345678901");
 
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")
@@ -135,16 +134,18 @@ public class EmployeeControllerTest {
         Long employeeId = 1L;
         Long projectId = 1L;
 
-        Employee employee = new Employee("John", "Doe","jonh.doe@company.com","12345678901");
+        Set<Project> projects = new HashSet<>();
+        Employee employee = new Employee("John", "Doe", "jonh.doe@company.com", "12345678901");
         Project project = new Project("CoolProject", new Date(), new Date());
         String url = baseUrl + "/" + employeeId + "/assign/" + projectId;
 
         Employee employeeWithSignedProject = employee;
-        employeeWithSignedProject.getProjects().add(project);
+        projects.add(project);
+        employeeWithSignedProject.setProjects(projects);
 
         Mockito.when(employeeService.findById(employeeId)).thenReturn(employee);
         Mockito.when(projectService.findById(projectId)).thenReturn(project);
-        Mockito.when(employeeService.assignEmployeeToProject(employee,project)).thenReturn(employeeWithSignedProject);
+        Mockito.when(employeeService.assignEmployeeToProject(employee, project)).thenReturn(employeeWithSignedProject);
 
         MvcResult result = mockMvc.perform(get(url)
                 .contentType("application/json"))

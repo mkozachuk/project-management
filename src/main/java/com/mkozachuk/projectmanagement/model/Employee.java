@@ -1,13 +1,9 @@
 package com.mkozachuk.projectmanagement.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -30,7 +26,7 @@ public class Employee implements Serializable {
     @NotBlank
     private String pesel;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "employees_projects",
             joinColumns = {
                     @JoinColumn(name = "employee_id", referencedColumnName = "employee_id",
@@ -38,7 +34,7 @@ public class Employee implements Serializable {
             inverseJoinColumns = {
                     @JoinColumn(name = "project_id", referencedColumnName = "project_id",
                             nullable = false, updatable = false)})
-    private Set<Project> projects = new HashSet<>();
+    private Set<Project> projects;//= new HashSet<>();
 
     public Employee() {
     }
@@ -67,13 +63,12 @@ public class Employee implements Serializable {
                 Objects.equals(firstName, employee.firstName) &&
                 Objects.equals(lastName, employee.lastName) &&
                 Objects.equals(email, employee.email) &&
-                Objects.equals(pesel, employee.pesel) &&
-                Objects.equals(projects, employee.projects);
+                Objects.equals(pesel, employee.pesel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employeeId, firstName, lastName, email, pesel, projects);
+        return Objects.hash(employeeId, firstName, lastName, email, pesel);
     }
 
     @Override
@@ -128,7 +123,6 @@ public class Employee implements Serializable {
         this.pesel = pesel;
     }
 
-    @JsonBackReference
     public Set<Project> getProjects() {
         return projects;
     }

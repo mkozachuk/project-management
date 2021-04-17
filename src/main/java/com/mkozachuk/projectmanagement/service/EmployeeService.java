@@ -7,24 +7,29 @@ import com.mkozachuk.projectmanagement.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+
 @Service
 public class EmployeeService {
     private EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository){
+    public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
-    public Employee save(Employee employee){
+    public Employee save(Employee employee) {
         return employeeRepository.save(employee);
     }
 
-    public Employee findById(Long id){
+    public Employee findById(Long id) {
         return employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
-    public Employee assignEmployeeToProject(Employee employee, Project project){
+    public Employee assignEmployeeToProject(Employee employee, Project project) {
+        if (employee.getProjects() == null) {
+            employee.setProjects(new HashSet<>());
+        }
         employee.getProjects().add(project);
         return save(employee);
     }
