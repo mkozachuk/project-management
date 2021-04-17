@@ -1,6 +1,7 @@
 package com.mkozachuk.projectmanagement.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,9 +15,10 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clientId;
 
+    @NotBlank
     private String companyName;
 
-    @OneToMany(mappedBy="client")
+    @OneToMany(mappedBy = "client")
     private Set<Project> projects = new HashSet<>();
 
     public Client() {
