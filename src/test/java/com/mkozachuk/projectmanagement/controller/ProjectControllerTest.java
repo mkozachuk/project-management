@@ -2,16 +2,20 @@ package com.mkozachuk.projectmanagement.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mkozachuk.projectmanagement.model.Project;
+import com.mkozachuk.projectmanagement.service.ClientService;
+import com.mkozachuk.projectmanagement.service.EmployeeService;
 import com.mkozachuk.projectmanagement.service.ProjectService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Date;
 
@@ -32,19 +36,27 @@ public class ProjectControllerTest {
     @MockBean
     private ProjectService projectService;
 
+    @MockBean
+    private ClientService clientService;
+
+    @MockBean
+    private EmployeeService employeeService;
+
     private static String baseUrl;
 
     @BeforeAll
-    public static void setUp(){
-        baseUrl = "/api/v1/project";
+    public static void setUp() {
+        baseUrl = "/api/v1/projects";
     }
+
 
     @Test
     public void testCreateNewProject() throws Exception {
         Project project = new Project("awesomeProject", new Date(), new Date());
         Mockito.when(projectService.save(project)).thenReturn(project);
 
-        MvcResult result = mockMvc.perform(post(baseUrl).contentType("application/json")
+        MvcResult result = mockMvc.perform(post(baseUrl)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(project)))
                 .andExpect(status().is2xxSuccessful())
                 .andDo(print())
@@ -60,7 +72,7 @@ public class ProjectControllerTest {
 
     @Test
     public void testProjectNameMustBeNotBlank() throws Exception {
-        Project project = new Project("",new Date(), new Date());
+        Project project = new Project("", new Date(), new Date());
 
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")
@@ -73,7 +85,7 @@ public class ProjectControllerTest {
 
     @Test
     public void testStartDateMustBeNotNull() throws Exception {
-        Project project = new Project("awesomeProject",null, new Date());
+        Project project = new Project("awesomeProject", null, new Date());
 
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")
@@ -86,7 +98,7 @@ public class ProjectControllerTest {
 
     @Test
     public void testFinishDateMustBeNotNull() throws Exception {
-        Project project = new Project("awesomeProject",new Date(), null);
+        Project project = new Project("awesomeProject", new Date(), null);
 
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")

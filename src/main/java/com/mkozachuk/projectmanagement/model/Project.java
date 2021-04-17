@@ -1,14 +1,13 @@
 package com.mkozachuk.projectmanagement.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -32,8 +31,8 @@ public class Project implements Serializable {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
-    private Set<Employee> employees = new HashSet<>();
+    @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Employee> employees;// = new HashSet<>();
 
     public Project() {
     }
@@ -72,12 +71,13 @@ public class Project implements Serializable {
                 Objects.equals(projectName, project.projectName) &&
                 Objects.equals(startDate, project.startDate) &&
                 Objects.equals(finishDate, project.finishDate) &&
+                Objects.equals(client, project.client) &&
                 Objects.equals(employees, project.employees);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(projectId, projectName, startDate, finishDate, employees);
+        return Objects.hash(projectId, projectName, startDate, finishDate, client, employees);
     }
 
     @Override
@@ -133,7 +133,8 @@ public class Project implements Serializable {
         this.client = client;
     }
 
-    @JsonManagedReference
+
+    @JsonIgnore
     public Set<Employee> getEmployees() {
         return employees;
     }
