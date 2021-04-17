@@ -1,6 +1,8 @@
 package com.mkozachuk.projectmanagement.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -13,10 +15,14 @@ public class Project implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "project_id")
     private Long projectId;
 
+    @NotBlank
     private String projectName;
+    @NotNull
     private Date startDate;
+    @NotNull
     private Date finishDate;
 
     @ManyToOne
