@@ -12,6 +12,7 @@ public class Employee implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "employee_id")
     private Long employeeId;
 
     private String firstName;
@@ -22,7 +23,7 @@ public class Employee implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "employees_projects",
             joinColumns = {
-                    @JoinColumn(name = "employee_id", referencedColumnName = "id",
+                    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id",
                             nullable = false, updatable = false)},
             inverseJoinColumns = {
                     @JoinColumn(name = "project_id", referencedColumnName = "project_id",
