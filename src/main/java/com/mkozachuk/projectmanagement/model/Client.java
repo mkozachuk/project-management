@@ -41,13 +41,12 @@ public class Client implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
         return Objects.equals(clientId, client.clientId) &&
-                Objects.equals(companyName, client.companyName) &&
-                Objects.equals(projects, client.projects);
+                Objects.equals(companyName, client.companyName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(clientId, companyName, projects);
+        return Objects.hash(clientId, companyName);
     }
 
     @Override

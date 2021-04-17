@@ -9,11 +9,15 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -66,6 +70,57 @@ public class ClientControllerTest {
                 .andDo(print());
 
         Mockito.verify(clientService, Mockito.times(0)).save(client);
+    }
+
+    @Test
+    public void testFindAll() throws Exception {
+        List<Client> allClients = new ArrayList<>();
+        allClients.add(new Client( "SpaceX"));
+        allClients.add(new Client( "Tesla"));
+        allClients.add(new Client( "StarLink"));
+        allClients.add(new Client( "Nasa"));
+        Mockito.when(clientService.findAll()).thenReturn(allClients);
+
+        MvcResult mvcResult = mockMvc.perform(get(baseUrl))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn();
+
+        String actualJsonResponse = mvcResult.getResponse().getContentAsString();
+        String expected = objectMapper.writeValueAsString(allClients);
+        assertThat(actualJsonResponse).isEqualToIgnoringWhitespace(expected);
+    }
+
+    @Test
+    public void testDeleteClient() throws Exception {
+        Long clientId = 1L;
+        Mockito.doNothing().when(clientService).deleteById(clientId);
+        String url = baseUrl +"/"+ clientId;
+
+        mockMvc.perform(delete(url)).andExpect(status().isOk());
+
+        Mockito.verify(clientService, Mockito.times(1)).deleteById(clientId);
+    }
+
+    @Test
+    public void testUpdateClient() throws Exception{
+        Long clientId = 1L;
+        Client newClient = new Client("Apple");
+        Mockito.when(clientService.update(clientId,newClient)).thenReturn(newClient);
+        String url = baseUrl +"/"+ clientId;
+
+        MvcResult result = mockMvc.perform(put(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(newClient)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn();
+
+        Mockito.verify(clientService, Mockito.times(1)).update(clientId,newClient);
+        String actualJsonResponse = result.getResponse().getContentAsString();
+        String expected = objectMapper.writeValueAsString(newClient);
+
+        assertThat(actualJsonResponse).isEqualToIgnoringWhitespace(expected);
     }
 
 }
