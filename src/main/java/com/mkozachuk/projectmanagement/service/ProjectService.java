@@ -68,4 +68,8 @@ public class ProjectService {
                 });
     }
 
+    public List<Project> saveAll(List<Project> projects){
+        return projectRepository.saveAll(projects);
+    }
+
 }

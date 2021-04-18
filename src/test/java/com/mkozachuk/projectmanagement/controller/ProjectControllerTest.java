@@ -53,7 +53,7 @@ public class ProjectControllerTest {
     }
 
     @BeforeEach
-    public void createNewEmployee() {
+    public void createNewProject() {
         project = new Project("awesomeProject", new Date(), new Date(),null);
     }
 

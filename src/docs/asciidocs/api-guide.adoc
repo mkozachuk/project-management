@@ -5,6 +5,79 @@
 :toclevels: 4
 :sectlinks:
 
+[[project-endpoint]]
+== Project endpoint
+api/v1/projects
+
+[[create-new-project]]
+==== Create new project
+* Request structure
+include::{snippets}/create-new-project/http-request.adoc[]
+
+* Example response
+include::{snippets}/create-new-project/http-response.adoc[]
+
+* CURL request
+include::{snippets}/create-new-project/curl-request.adoc[]
+[[assign-project-to-client]]
+==== Assign project to client
+
+* Request structure
+include::{snippets}/assign-project-to-client/http-request.adoc[]
+
+* Example response
+include::{snippets}/assign-project-to-client/http-response.adoc[]
+
+* CURL request
+include::{snippets}/assign-project-to-client/curl-request.adoc[]
+
+[[assign-project-to-employee]]
+==== Assign project to employee
+
+* Request structure
+include::{snippets}/assign-project-to-employee/http-request.adoc[]
+
+* Example response
+include::{snippets}/assign-project-to-employee/http-response.adoc[]
+
+* CURL request
+include::{snippets}/assign-project-to-employee/curl-request.adoc[]
+
+[[get-all-projects]]
+==== Get all projects
+
+* Request structure
+include::{snippets}/find-all-projets/http-request.adoc[]
+
+* Example response
+include::{snippets}/find-all-projets/http-response.adoc[]
+
+* CURL request
+include::{snippets}/find-all-projets/curl-request.adoc[]
+
+[[update-project]]
+==== Update project
+
+* Request structure
+include::{snippets}/update-project/http-request.adoc[]
+
+* Example response
+include::{snippets}/update-project/http-response.adoc[]
+
+* CURL request
+include::{snippets}/update-project/curl-request.adoc[]
+[[delete-project]]
+==== Delete project
+
+* Request structure
+include::{snippets}/delete-project/http-request.adoc[]
+
+* Example response
+include::{snippets}/delete-project/http-response.adoc[]
+
+* URL request
+include::{snippets}/delete-project/curl-request.adoc[]
+
 [[employee-endpoint]]
 == Employee endpoint
 api/v1/employees
