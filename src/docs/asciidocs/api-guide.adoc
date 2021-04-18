@@ -5,13 +5,32 @@
 :toclevels: 4
 :sectlinks:
 
+[[Overview]]
+== Overview
+*REST API for comparative project management*
+
+Main features:
+
+* Create projects
+* Create clients
+* Create employees
+* Assign projects to client
+* Assign projects to employee
+* Assign employees to project
+
+Other features:
+
+* Get all : Clients, Employees, Projects
+* Update by id : Clients, Employees, Projects
+* Delete by id: Clients, Employees, Projects
+
+
 [[project-endpoint]]
 == Project endpoint
-api/v1/projects
-
 [[create-new-project]]
 ==== Create new project
 `POST`
+
 * Request structure
 include::{snippets}/create-new-project/http-request.adoc[]
 
@@ -23,6 +42,7 @@ include::{snippets}/create-new-project/curl-request.adoc[]
 [[assign-project-to-client]]
 ==== Assign project to client
 `GET` /{id}/assign-to-client/{clientId}
+
 * Request structure
 include::{snippets}/assign-project-to-client/http-request.adoc[]
 
@@ -35,6 +55,7 @@ include::{snippets}/assign-project-to-client/curl-request.adoc[]
 [[assign-project-to-employee]]
 ==== Assign project to employee
 `GET` /{id}/assign-to-employee/{employeeId}
+
 * Request structure
 include::{snippets}/assign-project-to-employee/http-request.adoc[]
 
@@ -47,6 +68,7 @@ include::{snippets}/assign-project-to-employee/curl-request.adoc[]
 [[get-all-projects]]
 ==== Get all projects
 `GET`
+
 * Request structure
 include::{snippets}/find-all-projets/http-request.adoc[]
 
@@ -59,6 +81,7 @@ include::{snippets}/find-all-projets/curl-request.adoc[]
 [[update-project]]
 ==== Update project
 `PUT` /{id}
+
 * Request structure
 include::{snippets}/update-project/http-request.adoc[]
 
@@ -70,6 +93,7 @@ include::{snippets}/update-project/curl-request.adoc[]
 [[delete-project]]
 ==== Delete project
 `DELETE` /{id}
+
 * Request structure
 include::{snippets}/delete-project/http-request.adoc[]
 
@@ -86,6 +110,7 @@ api/v1/employees
 [[create-new-employee]]
 ==== Create new employee
 `POST`
+
 * Request structure
 include::{snippets}/create-new-employee/http-request.adoc[]
 
@@ -97,6 +122,7 @@ include::{snippets}/create-new-employee/curl-request.adoc[]
 [[assign-employee-to-project]]
 ==== Assign employee to project
 `GET` /{id}/assign/{projectId}
+
 * Request structure
 include::{snippets}/assign-employee-to-project/http-request.adoc[]
 
@@ -109,6 +135,7 @@ include::{snippets}/assign-employee-to-project/curl-request.adoc[]
 [[get-all-employees]]
 ==== Get all employees
 `GET`
+
 * Request structure
 include::{snippets}/find-all-employees/http-request.adoc[]
 
@@ -121,6 +148,7 @@ include::{snippets}/find-all-employees/curl-request.adoc[]
 [[update-employee]]
 ==== Update employee
 `PUT` /{id}
+
 * Request structure
 include::{snippets}/update-employee/http-request.adoc[]
 
@@ -132,6 +160,7 @@ include::{snippets}/update-employee/curl-request.adoc[]
 [[delete-employee]]
 ==== Delete employee
 `DELETE` /{id}
+
 * Request structure
 include::{snippets}/delete-employee/http-request.adoc[]
 
@@ -147,6 +176,7 @@ api/v1/clients
 [[create-new-client]]
 ==== Create new client
 `POST`
+
 * Request structure
 include::{snippets}/create-new-client/http-request.adoc[]
 
@@ -159,6 +189,7 @@ include::{snippets}/create-new-client/curl-request.adoc[]
 [[get-all-clients]]
 ==== Get all clients
 `GET`
+
 * Request structure
 include::{snippets}/find-all-clients/http-request.adoc[]
 
@@ -171,6 +202,7 @@ include::{snippets}/find-all-clients/curl-request.adoc[]
 [[update-client]]
 ==== Update client
 `PUT` /{id}
+
 * Request structure
 include::{snippets}/update-client/http-request.adoc[]
 
@@ -182,6 +214,7 @@ include::{snippets}/update-client/curl-request.adoc[]
 [[delete-client]]
 ==== Delete client
 `DELETE` /{id}
+
 * Request structure
 include::{snippets}/delete-client/http-request.adoc[]
 
