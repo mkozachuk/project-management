@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 
 
 @Service
@@ -41,6 +42,30 @@ public class ProjectService {
         project.getEmployees().add(employee);
         employee.getProjects().add(project);
         return save(project);
+    }
+
+    public List<Project> findAll(){
+        return projectRepository.findAll();
+    }
+
+    public void deleteById(Long id){
+        projectRepository.deleteById(id);
+    }
+
+    public Project update(Long id, Project newProject){
+        return projectRepository.findById(id)
+                .map(project -> {
+                    project.setProjectName(newProject.getProjectName());
+                    project.setStartDate(newProject.getStartDate());
+                    project.setFinishDate(newProject.getFinishDate());
+                    project.setClient(newProject.getClient());
+                    project.setEmployees(newProject.getEmployees());
+                    return save(newProject);
+                })
+                .orElseGet(() -> {
+                    newProject.setProjectId(id);
+                    return save(newProject);
+                });
     }
 
 }

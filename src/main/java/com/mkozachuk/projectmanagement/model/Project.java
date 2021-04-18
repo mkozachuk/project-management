@@ -22,8 +22,10 @@ public class Project implements Serializable {
 
     @NotBlank
     private String projectName;
+
     @NotNull
     private Date startDate;
+
     @NotNull
     private Date finishDate;
 
@@ -32,7 +34,7 @@ public class Project implements Serializable {
     private Client client;
 
     @ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Employee> employees;// = new HashSet<>();
+    private Set<Employee> employees;
 
     public Project() {
     }
@@ -132,7 +134,6 @@ public class Project implements Serializable {
     public void setClient(Client client) {
         this.client = client;
     }
-
 
     @JsonIgnore
     public Set<Employee> getEmployees() {
