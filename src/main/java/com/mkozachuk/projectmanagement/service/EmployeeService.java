@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class EmployeeService {
@@ -32,5 +33,29 @@ public class EmployeeService {
         }
         employee.getProjects().add(project);
         return save(employee);
+    }
+
+    public List<Employee> findAll(){
+        return employeeRepository.findAll();
+    }
+
+    public void deleteById(Long id){
+        employeeRepository.deleteById(id);
+    }
+
+    public Employee update(Long id, Employee newEmployee){
+        return employeeRepository.findById(id)
+                .map(employee -> {
+                    employee.setFirstName(newEmployee.getFirstName());
+                    employee.setLastName(newEmployee.getLastName());
+                    employee.setEmail(newEmployee.getEmail());
+                    employee.setPesel(newEmployee.getPesel());
+                    employee.setProjects(newEmployee.getProjects());
+                    return save(newEmployee);
+                })
+                .orElseGet(() -> {
+                    newEmployee.setEmployeeId(id);
+                    return save(newEmployee);
+                });
     }
 }

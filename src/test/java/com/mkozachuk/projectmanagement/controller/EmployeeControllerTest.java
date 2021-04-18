@@ -6,21 +6,20 @@ import com.mkozachuk.projectmanagement.model.Project;
 import com.mkozachuk.projectmanagement.service.EmployeeService;
 import com.mkozachuk.projectmanagement.service.ProjectService;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,15 +39,20 @@ public class EmployeeControllerTest {
 
     private static String baseUrl;
 
+    private Employee employee;
+
     @BeforeAll
     public static void setUp() {
         baseUrl = "/api/v1/employees";
     }
 
+    @BeforeEach
+    public void createNewEmployee() {
+        employee = new Employee("John", "Doe", "jonh.doe@company.com", "12345678901");
+    }
+
     @Test
     public void testCreateNewEmployee() throws Exception {
-        Employee employee = new Employee("John", "Doe", "jonh.doe@company.com", "12345678901");
-
         Mockito.when(employeeService.save(employee)).thenReturn(employee);
 
         MvcResult result = mockMvc.perform(post(baseUrl).contentType("application/json")
@@ -66,7 +70,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void testFirstNameMustBeNotBlank() throws Exception {
-        Employee employee = new Employee("", "Doe", "jonh.doe@company.com", "12345678901");
+        employee.setFirstName("");
 
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")
@@ -79,8 +83,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void testLastNameMustBeNotBlank() throws Exception {
-        Employee employee = new Employee("John", "", "jonh.doe@company.com", "12345678901");
-
+        employee.setLastName("");
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(employee)))
@@ -92,8 +95,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void testPeselMustBeNotBlank() throws Exception {
-        Employee employee = new Employee("John", "Doe", "jonh.doe@company.com", "");
-
+        employee.setPesel("");
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(employee)))
@@ -105,8 +107,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void testEmailMustBeNotBlank() throws Exception {
-        Employee employee = new Employee("John", "Doe", "", "12345678901");
-
+        employee.setEmail("");
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(employee)))
@@ -118,8 +119,7 @@ public class EmployeeControllerTest {
 
     @Test
     public void testEmailMustBeEmailStyle() throws Exception {
-        Employee employee = new Employee("John", "Doe", "fakeEmail", "12345678901");
-
+        employee.setEmail("fakeEmail");
         mockMvc.perform(post(baseUrl)
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(employee)))
@@ -135,7 +135,6 @@ public class EmployeeControllerTest {
         Long projectId = 1L;
 
         Set<Project> projects = new HashSet<>();
-        Employee employee = new Employee("John", "Doe", "jonh.doe@company.com", "12345678901");
         Project project = new Project("CoolProject", new Date(), new Date());
         String url = baseUrl + "/" + employeeId + "/assign/" + projectId;
 
@@ -154,6 +153,56 @@ public class EmployeeControllerTest {
                 .andReturn();
         String actualJsonResponse = result.getResponse().getContentAsString();
         String expected = objectMapper.writeValueAsString(employeeWithSignedProject);
+        assertThat(actualJsonResponse).isEqualToIgnoringWhitespace(expected);
+    }
+
+    @Test
+    public void testFindAll() throws Exception {
+        List<Employee> allEmployees = new ArrayList<>();
+        allEmployees.add(new Employee("John", "Doe", "jonh.doe@company.com", "12345678901"));
+        allEmployees.add(new Employee("Albert", "Doe", "albert.doe@company.com", "12345678902"));
+        allEmployees.add(new Employee("Jane", "Doe", "jane.doe@company.com", "12345678903"));
+        Mockito.when(employeeService.findAll()).thenReturn(allEmployees);
+
+        MvcResult mvcResult = mockMvc.perform(get(baseUrl))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn();
+
+        String actualJsonResponse = mvcResult.getResponse().getContentAsString();
+        String expected = objectMapper.writeValueAsString(allEmployees);
+        assertThat(actualJsonResponse).isEqualToIgnoringWhitespace(expected);
+    }
+
+    @Test
+    public void testDeleteEmloyee() throws Exception {
+        Long employeeId = 1L;
+        Mockito.doNothing().when(employeeService).deleteById(employeeId);
+        String url = baseUrl + "/" + employeeId;
+
+        mockMvc.perform(delete(url)).andExpect(status().isOk());
+
+        Mockito.verify(employeeService, Mockito.times(1)).deleteById(employeeId);
+    }
+
+    @Test
+    public void testUpdateEmployee() throws Exception {
+        Long employeeId = 1L;
+        Employee newEmployee = employee;
+        Mockito.when(employeeService.update(employeeId, newEmployee)).thenReturn(newEmployee);
+        String url = baseUrl + "/" + employeeId;
+
+        MvcResult result = mockMvc.perform(put(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(newEmployee)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn();
+
+        Mockito.verify(employeeService, Mockito.times(1)).update(employeeId, newEmployee);
+        String actualJsonResponse = result.getResponse().getContentAsString();
+        String expected = objectMapper.writeValueAsString(newEmployee);
+
         assertThat(actualJsonResponse).isEqualToIgnoringWhitespace(expected);
     }
 

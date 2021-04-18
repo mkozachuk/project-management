@@ -18,11 +18,14 @@ public class Employee implements Serializable {
 
     @NotBlank
     private String firstName;
+
     @NotBlank
     private String lastName;
+
     @NotBlank
     @Email
     private String email;
+
     @NotBlank
     private String pesel;
 
@@ -34,7 +37,7 @@ public class Employee implements Serializable {
             inverseJoinColumns = {
                     @JoinColumn(name = "project_id", referencedColumnName = "project_id",
                             nullable = false, updatable = false)})
-    private Set<Project> projects;//= new HashSet<>();
+    private Set<Project> projects;
 
     public Employee() {
     }
