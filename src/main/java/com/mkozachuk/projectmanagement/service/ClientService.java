@@ -2,7 +2,6 @@ package com.mkozachuk.projectmanagement.service;
 
 import com.mkozachuk.projectmanagement.exception.ClientNotFoundException;
 import com.mkozachuk.projectmanagement.model.Client;
-import com.mkozachuk.projectmanagement.model.Project;
 import com.mkozachuk.projectmanagement.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,19 +21,19 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
-    public Client findById(Long id){
-        return clientRepository.findById(id).orElseThrow(() -> new ClientNotFoundException(id)) ;
+    public Client findById(Long id) {
+        return clientRepository.findById(id).orElseThrow(() -> new ClientNotFoundException(id));
     }
 
-    public List<Client> findAll(){
+    public List<Client> findAll() {
         return clientRepository.findAll();
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         clientRepository.deleteById(id);
     }
 
-    public Client update(Long id, Client newClient){
+    public Client update(Long id, Client newClient) {
         return clientRepository.findById(id)
                 .map(client -> {
                     client.setCompanyName(newClient.getCompanyName());
@@ -45,5 +44,9 @@ public class ClientService {
                     newClient.setClientId(id);
                     return save(newClient);
                 });
+    }
+
+    public List<Client> saveAll(List<Client> clients) {
+        return clientRepository.saveAll(clients);
     }
 }
