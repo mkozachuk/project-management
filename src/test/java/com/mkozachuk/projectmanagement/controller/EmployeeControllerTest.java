@@ -175,7 +175,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void testDeleteEmloyee() throws Exception {
+    public void testDeleteEmployee() throws Exception {
         Long employeeId = 1L;
         Mockito.doNothing().when(employeeService).deleteById(employeeId);
         String url = baseUrl + "/" + employeeId;

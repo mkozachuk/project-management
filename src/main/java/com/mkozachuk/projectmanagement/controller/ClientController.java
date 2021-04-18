@@ -37,13 +37,13 @@ class ClientController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    Client update(@PathVariable("id") Long id, @RequestBody Client client) {
+    Client update(@PathVariable("id") Long id, @Valid @RequestBody Client client) {
         return clientService.update(id,client);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteById(@PathVariable("id") Long id) {
+    void deleteById(@PathVariable("id") Long id) {
         clientService.deleteById(id);
     }
 }
