@@ -1,0 +1,69 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[employee-endpoint]]
+== Employee endpoint
+api/v1/employees
+
+[[create-new-employee]]
+==== Create new employee
+* Request structure
+include::{snippets}/create-new-employee/http-request.adoc[]
+
+* Example response
+include::{snippets}/create-new-employee/http-response.adoc[]
+
+* CURL request
+include::{snippets}/create-new-employee/curl-request.adoc[]
+[[assign-employee-to-project]]
+==== Assign employee to project
+
+* Request structure
+include::{snippets}/assign-employee-to-project/http-request.adoc[]
+
+* Example response
+include::{snippets}/assign-employee-to-project/http-response.adoc[]
+
+* CURL request
+include::{snippets}/assign-employee-to-project/curl-request.adoc[]
+
+[[get-all-employees]]
+==== Get all employees
+
+* Request structure
+include::{snippets}/find-all-employees/http-request.adoc[]
+
+* Example response
+include::{snippets}/find-all-employees/http-response.adoc[]
+
+* CURL request
+include::{snippets}/find-all-employees/curl-request.adoc[]
+
+[[update-employee]]
+==== Update employee
+
+* Request structure
+include::{snippets}/update-employee/http-request.adoc[]
+
+* Example response
+include::{snippets}/update-employee/http-response.adoc[]
+
+* CURL request
+include::{snippets}/update-employee/curl-request.adoc[]
+[[delete-employee]]
+==== Delete employee
+
+* Request structure
+include::{snippets}/delete-employee/http-request.adoc[]
+
+* Example response
+include::{snippets}/delete-employee/http-response.adoc[]
+
+* URL request
+include::{snippets}/delete-employee/curl-request.adoc[]
+
+

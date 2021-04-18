@@ -58,4 +58,8 @@ public class EmployeeService {
                     return save(newEmployee);
                 });
     }
+
+    public List<Employee> saveAll(List<Employee> employees){
+        return employeeRepository.saveAll(employees);
+    }
 }
