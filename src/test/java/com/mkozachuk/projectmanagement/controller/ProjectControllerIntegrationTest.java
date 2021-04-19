@@ -81,7 +81,7 @@ class ProjectControllerIntegrationTest {
 
         String url = baseUrl + "/" + projectId + "/assign-to-client/" + clientId;
 
-        MvcResult result = mockMvc.perform(get(url)
+        MvcResult result = mockMvc.perform(put(url)
                 .contentType("application/json"))
                 .andDo(print())
                 .andDo(document("assign-project-to-client"))
@@ -109,7 +109,7 @@ class ProjectControllerIntegrationTest {
 
         String url = baseUrl + "/" + projectId + "/assign-to-employee/" + employeeId;
 
-        MvcResult result = mockMvc.perform(get(url)
+        MvcResult result = mockMvc.perform(put(url)
                 .contentType("application/json"))
                 .andDo(print())
                 .andDo(document("assign-project-to-employee"))

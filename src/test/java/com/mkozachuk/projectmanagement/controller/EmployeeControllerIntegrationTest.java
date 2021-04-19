@@ -79,7 +79,7 @@ class EmployeeControllerIntegrationTest {
         projects.add(project);
         employeeWithSignedProject.setProjects(projects);
 
-        MvcResult result = mockMvc.perform(get(url)
+        MvcResult result = mockMvc.perform(put(url)
                 .contentType("application/json"))
                 .andDo(print())
                 .andDo(document("assign-employee-to-project"))

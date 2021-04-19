@@ -27,7 +27,7 @@ public class EmployeeController {
         return employeeService.save(newEmployee);
     }
 
-    @GetMapping("/{id}/assign/{projectId}")
+    @PutMapping("/{id}/assign/{projectId}")
     Employee assignEmployeeToProject(@PathVariable("id") Long id, @PathVariable("projectId") Long projectId) {
         return employeeService.assignEmployeeToProject(employeeService.findById(id), projectService.findById(projectId));
     }

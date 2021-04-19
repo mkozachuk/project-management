@@ -41,7 +41,7 @@ include::{snippets}/create-new-project/http-response.adoc[]
 include::{snippets}/create-new-project/curl-request.adoc[]
 [[assign-project-to-client]]
 ==== Assign project to client
-`GET` /{id}/assign-to-client/{clientId}
+`PUT` /{id}/assign-to-client/{clientId}
 
 * Request structure
 include::{snippets}/assign-project-to-client/http-request.adoc[]
@@ -54,7 +54,7 @@ include::{snippets}/assign-project-to-client/curl-request.adoc[]
 
 [[assign-project-to-employee]]
 ==== Assign project to employee
-`GET` /{id}/assign-to-employee/{employeeId}
+`PUT` /{id}/assign-to-employee/{employeeId}
 
 * Request structure
 include::{snippets}/assign-project-to-employee/http-request.adoc[]
@@ -121,7 +121,7 @@ include::{snippets}/create-new-employee/http-response.adoc[]
 include::{snippets}/create-new-employee/curl-request.adoc[]
 [[assign-employee-to-project]]
 ==== Assign employee to project
-`GET` /{id}/assign/{projectId}
+`PUT` /{id}/assign/{projectId}
 
 * Request structure
 include::{snippets}/assign-employee-to-project/http-request.adoc[]

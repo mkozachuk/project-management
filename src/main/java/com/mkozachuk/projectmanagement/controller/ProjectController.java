@@ -30,12 +30,12 @@ public class ProjectController {
         return projectService.save(newProject);
     }
 
-    @GetMapping("/{id}/assign-to-client/{clientId}")
+    @PutMapping("/{id}/assign-to-client/{clientId}")
     Project assignProjectToClient(@PathVariable("id") Long id, @PathVariable("clientId") Long clientId) {
         return projectService.assignProjectToClient(clientService.findById(clientId), projectService.findById(id));
     }
 
-    @GetMapping("/{id}/assign-to-employee/{employeeId}")
+    @PutMapping("/{id}/assign-to-employee/{employeeId}")
     Project assignProjectToEmployee(@PathVariable("id") Long id, @PathVariable("employeeId") Long employeeId) {
         return projectService.assignProjectToEmployee(employeeService.findById(employeeId), projectService.findById(id));
     }

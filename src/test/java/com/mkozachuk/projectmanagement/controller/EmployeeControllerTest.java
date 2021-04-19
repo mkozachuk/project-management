@@ -146,7 +146,7 @@ public class EmployeeControllerTest {
         Mockito.when(projectService.findById(projectId)).thenReturn(project);
         Mockito.when(employeeService.assignEmployeeToProject(employee, project)).thenReturn(employeeWithSignedProject);
 
-        MvcResult result = mockMvc.perform(get(url)
+        MvcResult result = mockMvc.perform(put(url)
                 .contentType("application/json"))
                 .andDo(print())
                 .andExpect(status().isOk())
