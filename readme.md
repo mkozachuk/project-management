@@ -115,7 +115,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 135
 Host: localhost:8080
 
-{"projectId":1,"projectName":"awesomeProject","startDate":"2021-04-18T18:21:58.110+00:00","finishDate":"2021-04-18T18:21:58.110+00:00"}</pre>
+{"projectId":1,"projectName":"awesomeProject","startDate":"2021-04-19T19:56:54.246+00:00","finishDate":"2021-04-19T19:56:54.246+00:00"}</pre>
 </div>
 </div>
 <div class="ulist">
@@ -131,7 +131,7 @@ Host: localhost:8080
 Content-Type: application/json
 Content-Length: 135
 
-{"projectId":1,"projectName":"awesomeProject","startDate":"2021-04-18T18:21:58.110+00:00","finishDate":"2021-04-18T18:21:58.110+00:00"}</pre>
+{"projectId":1,"projectName":"awesomeProject","startDate":"2021-04-19T19:56:54.246+00:00","finishDate":"2021-04-19T19:56:54.246+00:00"}</pre>
 </div>
 </div>
 <div class="ulist">
@@ -145,14 +145,14 @@ Content-Length: 135
 <div class="content">
 <pre>$ curl 'http://localhost:8080/api/v1/projects' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -d '{"projectId":1,"projectName":"awesomeProject","startDate":"2021-04-18T18:21:58.110+00:00","finishDate":"2021-04-18T18:21:58.110+00:00"}'</pre>
+    -d '{"projectId":1,"projectName":"awesomeProject","startDate":"2021-04-19T19:56:54.246+00:00","finishDate":"2021-04-19T19:56:54.246+00:00"}'</pre>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="assign-project-to-client"><a class="link" href="#assign-project-to-client">Assign project to client</a></h4>
 <div class="paragraph">
-<p><code>GET</code> /{id}/assign-to-client/{clientId}</p>
+<p><code>PUT</code> /{id}/assign-to-client/{clientId}</p>
 </div>
 <div class="ulist">
 <ul>
@@ -163,7 +163,7 @@ Content-Length: 135
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>GET /api/v1/projects/1/assign-to-client/1 HTTP/1.1
+<pre>PUT /api/v1/projects/1/assign-to-client/1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Host: localhost:8080</pre>
 </div>
@@ -181,7 +181,7 @@ Host: localhost:8080</pre>
 Content-Type: application/json
 Content-Length: 135
 
-{"projectId":1,"projectName":"awesomeProject","startDate":"2021-04-18T18:22:00.049+00:00","finishDate":"2021-04-18T18:22:00.049+00:00"}</pre>
+{"projectId":1,"projectName":"awesomeProject","startDate":"2021-04-19T19:56:56.617+00:00","finishDate":"2021-04-19T19:56:56.617+00:00"}</pre>
 </div>
 </div>
 <div class="ulist">
@@ -193,7 +193,7 @@ Content-Length: 135
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl 'http://localhost:8080/api/v1/projects/1/assign-to-client/1' -i -X GET \
+<pre>$ curl 'http://localhost:8080/api/v1/projects/1/assign-to-client/1' -i -X PUT \
     -H 'Content-Type: application/json;charset=UTF-8'</pre>
 </div>
 </div>
@@ -201,7 +201,7 @@ Content-Length: 135
 <div class="sect3">
 <h4 id="assign-project-to-employee"><a class="link" href="#assign-project-to-employee">Assign project to employee</a></h4>
 <div class="paragraph">
-<p><code>GET</code> /{id}/assign-to-employee/{employeeId}</p>
+<p><code>PUT</code> /{id}/assign-to-employee/{employeeId}</p>
 </div>
 <div class="ulist">
 <ul>
@@ -212,7 +212,7 @@ Content-Length: 135
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>GET /api/v1/projects/1/assign-to-employee/1 HTTP/1.1
+<pre>PUT /api/v1/projects/1/assign-to-employee/1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Host: localhost:8080</pre>
 </div>
@@ -230,7 +230,7 @@ Host: localhost:8080</pre>
 Content-Type: application/json
 Content-Length: 135
 
-{"projectId":1,"projectName":"awesomeProject","startDate":"2021-04-18T18:21:55.997+00:00","finishDate":"2021-04-18T18:21:55.997+00:00"}</pre>
+{"projectId":1,"projectName":"awesomeProject","startDate":"2021-04-19T19:56:52.071+00:00","finishDate":"2021-04-19T19:56:52.071+00:00"}</pre>
 </div>
 </div>
 <div class="ulist">
@@ -242,7 +242,7 @@ Content-Length: 135
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl 'http://localhost:8080/api/v1/projects/1/assign-to-employee/1' -i -X GET \
+<pre>$ curl 'http://localhost:8080/api/v1/projects/1/assign-to-employee/1' -i -X PUT \
     -H 'Content-Type: application/json;charset=UTF-8'</pre>
 </div>
 </div>
@@ -278,7 +278,7 @@ Host: localhost:8080</pre>
 Content-Type: application/json
 Content-Length: 423
 
-[{"projectId":1,"projectName":"awesomeProject","startDate":"2021-04-18T18:21:54.998+00:00","finishDate":"2021-04-18T18:21:54.998+00:00"},{"projectId":2,"projectName":"anotherAwesomeProject","startDate":"2021-04-18T18:21:54.998+00:00","finishDate":"2021-04-18T18:21:54.998+00:00"},{"projectId":3,"projectName":"oneMoreAwesomeProject","startDate":"2021-04-18T18:21:54.998+00:00","finishDate":"2021-04-18T18:21:54.998+00:00"}]</pre>
+[{"projectId":1,"projectName":"awesomeProject","startDate":"2021-04-19T19:56:51.038+00:00","finishDate":"2021-04-19T19:56:51.038+00:00"},{"projectId":2,"projectName":"anotherAwesomeProject","startDate":"2021-04-19T19:56:51.038+00:00","finishDate":"2021-04-19T19:56:51.038+00:00"},{"projectId":3,"projectName":"oneMoreAwesomeProject","startDate":"2021-04-19T19:56:51.038+00:00","finishDate":"2021-04-19T19:56:51.038+00:00"}]</pre>
 </div>
 </div>
 <div class="ulist">
@@ -313,7 +313,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 135
 Host: localhost:8080
 
-{"projectId":1,"projectName":"newProjectName","startDate":"2021-04-18T18:21:57.017+00:00","finishDate":"2021-04-18T18:21:57.017+00:00"}</pre>
+{"projectId":1,"projectName":"newProjectName","startDate":"2021-04-19T19:56:53.179+00:00","finishDate":"2021-04-19T19:56:53.179+00:00"}</pre>
 </div>
 </div>
 <div class="ulist">
@@ -329,7 +329,7 @@ Host: localhost:8080
 Content-Type: application/json
 Content-Length: 135
 
-{"projectId":1,"projectName":"newProjectName","startDate":"2021-04-18T18:21:57.017+00:00","finishDate":"2021-04-18T18:21:57.017+00:00"}</pre>
+{"projectId":1,"projectName":"newProjectName","startDate":"2021-04-19T19:56:53.179+00:00","finishDate":"2021-04-19T19:56:53.179+00:00"}</pre>
 </div>
 </div>
 <div class="ulist">
@@ -343,7 +343,7 @@ Content-Length: 135
 <div class="content">
 <pre>$ curl 'http://localhost:8080/api/v1/projects/1' -i -X PUT \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -d '{"projectId":1,"projectName":"newProjectName","startDate":"2021-04-18T18:21:57.017+00:00","finishDate":"2021-04-18T18:21:57.017+00:00"}'</pre>
+    -d '{"projectId":1,"projectName":"newProjectName","startDate":"2021-04-19T19:56:53.179+00:00","finishDate":"2021-04-19T19:56:53.179+00:00"}'</pre>
 </div>
 </div>
 </div>
@@ -454,7 +454,7 @@ Content-Length: 121
 <div class="sect3">
 <h4 id="assign-employee-to-project"><a class="link" href="#assign-employee-to-project">Assign employee to project</a></h4>
 <div class="paragraph">
-<p><code>GET</code> /{id}/assign/{projectId}</p>
+<p><code>PUT</code> /{id}/assign/{projectId}</p>
 </div>
 <div class="ulist">
 <ul>
@@ -465,7 +465,7 @@ Content-Length: 121
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>GET /api/v1/employees/1/assign/1 HTTP/1.1
+<pre>PUT /api/v1/employees/1/assign/1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Host: localhost:8080</pre>
 </div>
@@ -483,7 +483,7 @@ Host: localhost:8080</pre>
 Content-Type: application/json
 Content-Length: 251
 
-{"employeeId":1,"firstName":"John","lastName":"Doe","email":"jonh.doe@company.com","pesel":"12345678901","projects":[{"projectId":1,"projectName":"CoolProject","startDate":"2021-04-18T18:21:42.831+00:00","finishDate":"2021-04-18T18:21:42.831+00:00"}]}</pre>
+{"employeeId":1,"firstName":"John","lastName":"Doe","email":"jonh.doe@company.com","pesel":"12345678901","projects":[{"projectId":1,"projectName":"CoolProject","startDate":"2021-04-19T19:56:39.787+00:00","finishDate":"2021-04-19T19:56:39.787+00:00"}]}</pre>
 </div>
 </div>
 <div class="ulist">
@@ -495,7 +495,7 @@ Content-Length: 251
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ curl 'http://localhost:8080/api/v1/employees/1/assign/1' -i -X GET \
+<pre>$ curl 'http://localhost:8080/api/v1/employees/1/assign/1' -i -X PUT \
     -H 'Content-Type: application/json;charset=UTF-8'</pre>
 </div>
 </div>
